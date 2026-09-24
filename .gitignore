@@ -1,0 +1,15 @@
+# Arquivos temporários gerados pela compilação LaTeX
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+
+# Controle pessoal local: não publicar no repositório remoto
+outros/HISTORICO-LOCAL.md
