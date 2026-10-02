@@ -1,0 +1,144 @@
+% !TeX program = xelatex
+% Template inicial para o artigo da disciplina PCS5917 -- IA Adversarial.
+% Compilação inicial: xelatex artigo-jbcs. Após adicionar citações: xelatex, bibtex, xelatex e xelatex.
+\documentclass{sbc2023}
+
+\usepackage{graphicx}
+\usepackage[misc,geometry]{ifsym}
+\usepackage{fontspec}
+\usepackage{fontawesome}
+\usepackage{academicons}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{aas_macros}
+\usepackage[bottom]{footmisc}
+\usepackage{supertabular}
+\usepackage{afterpage}
+\usepackage{url}
+\usepackage{pifont}
+\usepackage{multicol}
+\usepackage{multirow}
+
+
+\setcitestyle{square}
+
+\definecolor{orcidlogo}{rgb}{0.37,0.48,0.13}
+\definecolor{unilogo}{rgb}{0.16,0.26,0.58}
+\definecolor{maillogo}{rgb}{0.58,0.16,0.26}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.0}
+\hypersetup{colorlinks,breaklinks,
+  linkcolor=darkblue,urlcolor=darkblue,
+  anchorcolor=darkblue,citecolor=darkblue}
+% Descomente durante a redação se ocorrer erro de hyperlinks no PDF.
+% \hypersetup{draft}
+
+% Estes metadados serão definidos pela editoria na versão publicada.
+\jid{JBCS}
+\jtitle{Journal of the Brazilian Computer Society, 202X, XX:1,}
+\doi{10.5753/jbcs.202X.XXXXXX}
+\copyrightstatement{This work is licensed under a Creative Commons Attribution 4.0 International License}
+\jyear{202X}
+
+\title[Título curto]{Título completo do artigo}
+
+% ORCID é obrigatório para cada autor no JBCS.
+\author[Silva et al. 202X]{
+\affil{\textbf{Caio Vinícius Ribeiro da Silva}~
+  \href{https://orcid.org/0000-0000-0000-0000}{\textcolor{orcidlogo}{\aiOrcid}}~
+  \textcolor{blue}{\faEnvelopeO}~~[
+  \textbf{Universidade de São Paulo}~|\href{mailto:email@usp.br}{\textbf{\textit{email@usp.br}}}]}
+
+% Copie o bloco \affil acima para cada coautor.
+}
+
+\renewcommand{\refname}{Referências}
+
+\begin{document}
+
+\begin{frontmatter}
+\maketitle
+
+\begin{mail}
+Instituição, endereço completo, cidade, estado, CEP e país.
+\end{mail}
+
+\begin{dates}
+% Informação fornecida pela editoria antes da publicação.
+\small{\textbf{Recebido:} DD mês AAAA~~~$\bullet$~~~\textbf{Aceito:} DD mês AAAA~~~$\bullet$~~~\textbf{Publicado:} DD mês AAAA}
+\end{dates}
+
+\begin{abstract}
+\textbf{Resumo.~}
+Apresente o problema de pesquisa, o objetivo, o método, os principais resultados e a contribuição.
+\end{abstract}
+
+\begin{keywords}
+Aprendizado de Máquina Adversarial, Modelos de Linguagem de Grande Porte, Segurança, Palavra-chave 4, Palavra-chave 5
+\end{keywords}
+
+\end{frontmatter}
+
+\section{Introdução}
+\label{sec:introduction}
+
+Apresente o problema, sua relevância, a lacuna de pesquisa e as contribuições deste trabalho. Cite trabalhos relacionados com comandos como \verb|\citep{chave}|.
+
+\section{Fundamentação e Trabalhos Relacionados}
+\label{sec:background}
+
+Apresente os conceitos necessários e posicione criticamente este trabalho em relação à literatura.
+
+\section{Metodologia}
+\label{sec:methodology}
+
+Descreva o desenho da pesquisa, os conjuntos de dados, os modelos, os procedimentos, as métricas de avaliação e as condições de reprodutibilidade.
+
+\subsection{Considerações Éticas}
+\label{sec:ethics}
+
+Descreva explicitamente como questões éticas, riscos, aprovações e o tratamento responsável dos dados foram considerados.
+
+\section{Resultados e Discussão}
+\label{sec:results}
+
+Apresente os resultados e discuta suas implicações e limitações. Mantenha tabelas e figuras em \texttt{images/}.
+
+% Exemplo de figura:
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=\columnwidth]{images/example.pdf}
+%   \caption{Legenda que descreve a figura.}
+%   \label{fig:example}
+% \end{figure}
+
+\section{Conclusão}
+\label{sec:conclusion}
+
+Resuma os achados, as limitações e os trabalhos futuros.
+
+\section*{Declarações}
+
+\begin{contributions}
+Descreva a contribuição de cada autor, de preferência usando a Taxonomia CRediT (\href{https://credit.niso.org/}{https://credit.niso.org/}). Esta declaração é obrigatória.
+\end{contributions}
+
+\begin{interests}
+Os autores declaram não possuir conflitos de interesse.
+\end{interests}
+
+\begin{acknowledgements}
+Agradecimentos opcionais.
+\end{acknowledgements}
+
+\begin{funding}
+Informe as fontes de financiamento, se houver.
+\end{funding}
+
+\begin{materials}
+Informe onde os conjuntos de dados, o código, os prompts e outros materiais suplementares estão disponíveis; caso contrário, informe se poderão ser disponibilizados mediante solicitação. Esta declaração é obrigatória.
+\end{materials}
+
+\bibliographystyle{apalike-sol}
+\bibliography{refs}
+
+\end{document}
