@@ -1,0 +1,55 @@
+{
+  "ambiente": "local",
+  "dataset": "ulianazb/asvspoof-2024",
+  "semente": 5917,
+  "n_por_classe": 100,
+  "sr": 16000,
+  "max_segundos": 6.0,
+  "n_fft": 512,
+  "hop_length": 160,
+  "n_mfcc": 20,
+  "n_folds": 5,
+  "utc": "2026-10-13T20:26:30.744551+00:00",
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "pacotes": {
+    "librosa": "0.11.0",
+    "soundfile": "0.13.1",
+    "scikit-learn": "1.9.1",
+    "pandas": "2.3.3",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2",
+    "kagglehub": "0.4.3"
+  },
+  "particao_origem": "ASVspoof 5: treino, subconjunto Kaggle v2 (1.000 por classe)",
+  "modo_metadata": "protocolo",
+  "colunas_protocolo": {
+    "audio": 1,
+    "rotulo": 5,
+    "locutor": 0,
+    "ataque": 4,
+    "pular_linhas": 0
+  },
+  "mapa_rotulos": {
+    "bonafide": 0,
+    "bona-fide": 0,
+    "bona_fide": 0,
+    "genuine": 0,
+    "real": 0,
+    "legitimo": 0,
+    "0": 0,
+    "spoof": 1,
+    "fake": 1,
+    "falso": 1,
+    "1": 1
+  },
+  "protocolo_sha256": "5c01100f88f2ec48a381b0c15483e4cc6223c3c9d55035f16c8abdb0f343263c",
+  "agrupamento": "locutor",
+  "n_treino": 159,
+  "n_teste": 41,
+  "classificador": {
+    "nome": "regressao_logistica",
+    "C": 1.0,
+    "max_iter": 3000,
+    "padronizacao": "ajustada somente no treino"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "modelo": "regressao_logistica",
+  "C": 1.0,
+  "n_features": 52,
+  "n_treino": 159,
+  "n_teste": 41,
+  "agrupamento": "locutor",
+  "accuracy": 0.8780487804878049,
+  "balanced_accuracy": 0.8773809523809524,
+  "precision_falso": 0.8636363636363636,
+  "recall_falso": 0.9047619047619048,
+  "f1_falso": 0.8837209302325582,
+  "roc_auc": 0.9738095238095238,
+  "average_precision": 0.9801587301587302
+}

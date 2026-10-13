@@ -13,3 +13,8 @@
 
 # Controle pessoal local: não publicar no repositório remoto
 outros/HISTORICO-LOCAL.md
+
+# Dados e ambiente locais da Aula 3
+/dados/aula-03/
+/.venv-aula03/
+.ipynb_checkpoints/
