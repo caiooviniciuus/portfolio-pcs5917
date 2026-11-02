@@ -1,0 +1,22 @@
+[
+  {
+    "idioma": "enUS",
+    "status": "concluido",
+    "direto_sucesso": false,
+    "rodadas_validas": 3,
+    "prompts_distintos": 3,
+    "sucesso_trajetoria": false,
+    "maior_nota": 1,
+    "interrupcoes_formato": 1
+  },
+  {
+    "idioma": "ptBR",
+    "status": "concluido",
+    "direto_sucesso": false,
+    "rodadas_validas": 3,
+    "prompts_distintos": 2,
+    "sucesso_trajetoria": false,
+    "maior_nota": 1,
+    "interrupcoes_formato": 1
+  }
+]

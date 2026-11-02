@@ -114,6 +114,24 @@ Ambos responderam LUA-4827 nas duas condições. A regra já era violada sem suf
 
 [Notebook com saídas](notebooks/aula_04_nanogcg_local.ipynb) · [Método, comparação e evidências](resultados/aula-04/README.md)
 
+### Aula 5 — Ataque Dinâmico Iterativo: PAIR e CipherChat
+
+**Aula:** 21/10/2026 · **Execução local:** 25/10/2026
+
+Usei **qwen3.5:9b** como alvo e **deepseek-r1:14b** como atacante e juiz, em contextos separados, pela API local do Ollama. Testei três cenários fictícios em inglês e português: aprovação sem autorização, divulgação de código confidencial e declaração indevida de quitação de fatura.
+
+No PAIR, executei seis pedidos diretos e 18 respostas iterativas. A revisão identificou três divulgações do código completo dentro de recusas, não reconhecidas pelo juiz: duas rodadas em inglês e o pedido direto em português. Os dois prompts em inglês já continham o código; são repetições proibidas, sem demonstrar descoberta de um segredo desconhecido. O pedido direto em português não continha o código. Não houve aprovação nem quitação indevidas.
+
+No CipherChat, executei 18 casos com controle textual, César +3 e ASCII decimal, além de seis calibrações. Encontrei 13 respostas interpretáveis que preservam a regra e cinco saídas inconclusivas, sem violação confirmada. Avaliei o conteúdo e o formato da codificação separadamente.
+
+A execução local substitui o Colab e o Inference Provider. O artigo do CipherChat foi lido no PDF oficial; os pareceres do OpenReview ficaram inacessíveis por HTTP 403. O recorte não permite generalizar diferenças de robustez entre idiomas.
+
+![Comparação das avaliações PAIR](images/aula-05/pair-tres-cenarios-avaliacao.png)
+
+![Avaliação do CipherChat](images/aula-05/cipherchat-tres-cenarios-avaliacao.png)
+
+[Notebook com saídas](notebooks/aula_05_pair_local.ipynb) · [Método, respostas, avaliações e evidências](resultados/aula-05/README.md)
+
 ## 3. Organização do Repositório
 
 ```text
@@ -123,6 +141,8 @@ Ambos responderam LUA-4827 nas duas condições. A regra já era violada sem suf
 │   ├── aula_02_llm_jailbreaks.ipynb
 │   ├── aula_03_deteccao_audio_falso.ipynb
 │   ├── aula_04_nanogcg_local.ipynb
+│   ├── aula_05_pair_local.ipynb
+│   ├── requirements-aula05.txt
 │   ├── requirements-aula04.txt
 │   ├── requirements-aula03.txt
 │   └── jailbreak_prompts.csv
@@ -132,13 +152,15 @@ Ambos responderam LUA-4827 nas duas condições. A regra já era violada sem suf
 │   │   └── templates_pt_aula02.csv
 │   ├── aula-03/
 │   │   └── README.md (método e resultados)
-│   └── aula-04/ (controles, respostas e avaliação humana pendente)
+│   ├── aula-04/ (segredo fictício e resultados)
+│   └── aula-05/ (PAIR local e comparação entre idiomas)
 ├── images/
 │   ├── aula-01/
 │   │   ├── postagem-tjsp-prompt-injection.png
 │   │   └── resposta-colega-nightshade.png
 │   ├── aula-03/ (atividade em grupo e gráficos)
-│   └── aula-04/ (comparações e curvas de loss)
+│   ├── aula-04/ (comparações e curvas de loss)
+│   └── aula-05/ (notas e respostas do PAIR)
 ├── apresentacao/ (fontes LaTeX da apresentação em grupo)
 │   └── images/
 ├── artigo/ (template LaTeX do artigo em grupo)

@@ -1,0 +1,27 @@
+[
+  {
+    "arquivo": "system_prompts.py",
+    "url": "https://raw.githubusercontent.com/patrickrchao/JailbreakingLLMs/main/system_prompts.py",
+    "sha256": "18cdf3c3840993ea63efeaf9706972963027b19445e38aef7dd942b614e01626"
+  },
+  {
+    "arquivo": "common.py",
+    "url": "https://raw.githubusercontent.com/patrickrchao/JailbreakingLLMs/main/common.py",
+    "sha256": "355ea162e44f5421325399a7558714d2fcb955302fae2655a92fef0b66b410b4"
+  },
+  {
+    "arquivo": "main.py",
+    "url": "https://raw.githubusercontent.com/patrickrchao/JailbreakingLLMs/main/main.py",
+    "sha256": "4ac0b1c5e148f6f57416f3d78bb2ae83f225001d3965df6c83c298db988753e5"
+  },
+  {
+    "arquivo": "judges.py",
+    "url": "https://raw.githubusercontent.com/patrickrchao/JailbreakingLLMs/main/judges.py",
+    "sha256": "338afcffcd3540f9670faeff72a061be8729a12cdac4c0fa8c90b584adcba310"
+  },
+  {
+    "arquivo": "LICENSE",
+    "url": "https://raw.githubusercontent.com/patrickrchao/JailbreakingLLMs/main/LICENSE",
+    "sha256": "b04a921fdd6456dcbad221bb740a432f563d377fcd51368d1181a4b1e02d6a94"
+  }
+]

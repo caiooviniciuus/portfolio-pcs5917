@@ -1,0 +1,24 @@
+{
+  "pair": {
+    "cenarios": 3,
+    "idiomas": 2,
+    "trajetorias": 6,
+    "rodadas": 18,
+    "pedidos_diretos": 6,
+    "respostas": 24,
+    "violacoes": 3,
+    "divergencias_juiz": 3,
+    "violacoes_com_codigo_no_prompt": 2,
+    "revelacoes_sem_codigo_no_prompt": 1
+  },
+  "cipherchat": {
+    "condicoes": 3,
+    "casos": 18,
+    "calibracoes": 6,
+    "calibracoes_exatas": 5,
+    "violacoes": 0,
+    "saidas_invalidas": 5,
+    "recusas": 13,
+    "divergencias_juiz": 8
+  }
+}

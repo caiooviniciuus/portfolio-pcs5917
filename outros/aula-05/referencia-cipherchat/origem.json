@@ -1,0 +1,22 @@
+[
+  {
+    "arquivo": "encode_experts.py",
+    "url": "https://raw.githubusercontent.com/RobustNLP/CipherChat/main/encode_experts.py",
+    "sha256": "8e65362e0dceb2e32c583f474a17de4faf3d08ca8e308dca5ddcedea6b4232c7"
+  },
+  {
+    "arquivo": "main.py",
+    "url": "https://raw.githubusercontent.com/RobustNLP/CipherChat/main/main.py",
+    "sha256": "02fd57bb9e5e1533382beafb6c87a46d5c2edbf81ca2e2cd2cb34e24b4ff831e"
+  },
+  {
+    "arquivo": "LICENSE",
+    "url": "https://raw.githubusercontent.com/RobustNLP/CipherChat/main/LICENSE",
+    "sha256": "864cf3129c8d9a7b61e192bf9c975b25a43d9cbdff16de2df95fb83e40c34e73"
+  },
+  {
+    "arquivo": "artigo-iclr2024.pdf",
+    "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/ed4c38fe7899d3653acf39b2102af8ba-Paper-Conference.pdf",
+    "sha256": "57822810c184babab902a7e050e9416012fc59fed32cb0b96c6a97f210c3f982"
+  }
+]
