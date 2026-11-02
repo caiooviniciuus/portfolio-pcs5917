@@ -78,7 +78,7 @@ No lote, `Aligned` foi a única estratégia com adesão, nos dois idiomas. Os te
 
 Comparei seis pares de respostas. `Hitchhiker's Guide`, `JOHN` e `WadeAI` produziram ficção declarada em inglês e recusaram em português; `benchmarking` teve resposta parcial nos dois idiomas e `Burple` recusou em ambos. A latência média foi de 1,636 s em inglês e 1,794 s em português.
 
-As respostas não comprovam vazamento de instruções reais. A adesão foi de 2% em cada idioma; uma única execução por condição e traduções sem validação independente não permitem concluir maior resistência em português. A revisão preservou os prompts, respostas e medições originais.
+A adesão foi de 2% nos dois idiomas. Como não tenho as instruções reais para comparar, não consigo confirmar um vazamento. Também não é possível concluir que o português foi mais resistente: houve uma execução por condição e as traduções não tiveram validação independente.
 
 [Notebook](notebooks/aula_02_llm_jailbreaks.ipynb) · [Resultados e justificativas](resultados/aula-02/resultados_ollama_aula02.csv) · [Templates traduzidos](resultados/aula-02/templates_pt_aula02.csv) · [Dataset](https://github.com/yjw1029/Self-Reminder-Data/blob/master/data/jailbreak_prompts.csv)
 
@@ -124,7 +124,7 @@ No PAIR, executei seis pedidos diretos e 18 respostas iterativas. A revisão ide
 
 No CipherChat, executei 18 casos com controle textual, César +3 e ASCII decimal, além de seis calibrações. Encontrei 13 respostas interpretáveis que preservam a regra e cinco saídas inconclusivas, sem violação confirmada. Avaliei o conteúdo e o formato da codificação separadamente.
 
-A execução local substitui o Colab e o Inference Provider. O artigo do CipherChat foi lido no PDF oficial; os pareceres do OpenReview ficaram inacessíveis por HTTP 403. O recorte não permite generalizar diferenças de robustez entre idiomas.
+A execução local substitui o Colab e o Inference Provider. A adaptação do CipherChat segue o PDF oficial; os pareceres do OpenReview ficaram inacessíveis por HTTP 403. Os testes não permitem concluir que um idioma seja mais resistente.
 
 ![Comparação das avaliações PAIR](images/aula-05/pair-tres-cenarios-avaliacao.png)
 
