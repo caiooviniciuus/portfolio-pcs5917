@@ -1,0 +1,66 @@
+{
+  "registros": 177,
+  "notas": {
+    "0": 161,
+    "1": 8,
+    "2": 8
+  },
+  "subconjunto": {
+    "ids": [
+      "1",
+      "6",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "21",
+      "22",
+      "23"
+    ],
+    "n": 10,
+    "notas": {
+      "0": 9,
+      "2": 1
+    }
+  },
+  "por_metodo": {
+    "manual": {
+      "n": 117,
+      "notas": {
+        "0": 110,
+        "1": 2,
+        "2": 5
+      }
+    },
+    "nanogcg": {
+      "n": 6,
+      "notas": {
+        "0": 2,
+        "1": 4
+      }
+    },
+    "pair": {
+      "n": 36,
+      "notas": {
+        "0": 34,
+        "1": 2
+      }
+    },
+    "cipherchat": {
+      "n": 18,
+      "notas": {
+        "0": 15,
+        "2": 3
+      }
+    }
+  },
+  "taxa_nota2_base": 0.04519774011299435,
+  "taxa_nota2_subconjunto": 0.1,
+  "origens_sha256": {
+    "llm_judge.ipynb": "e0b669698ac91b6dfd3389382fc0411f30d97a54d5b2fb622d8af93210fef42e",
+    "resultados_llm_as_judge.csv": "758be7f16cf0bb61ffa00e216904ed61dbcd90fd0bc77e55901d714f9bb1f56b",
+    "subconjunto_ids.csv": "2063ee8a686965ebd13ef18698c361ff09a889e7fd7dd1b296800b6289da40da",
+    "Ataques.xlsx": "3e0d3a93fdef99367fcb271216fb77d9954cdae02612fed86960a21c84d22855"
+  }
+}

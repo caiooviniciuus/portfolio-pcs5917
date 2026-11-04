@@ -1,0 +1,207 @@
+% !TeX program = xelatex
+% Relatório separado do artigo final da disciplina.
+% Compilar nesta pasta: xelatex relatorio-aula06; bibtex relatorio-aula06;
+% xelatex relatorio-aula06; xelatex relatorio-aula06.
+\documentclass{sbc2023}
+\usepackage[brazilian]{babel}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{url}
+\setcitestyle{numbers,square}
+\hypersetup{colorlinks=true,allcolors=black,pdftitle={Avaliação humana e automática de ataques a modelos de linguagem},pdfauthor={Arthur Moriggi Pimenta; Caio Vinícius Ribeiro da Silva; Roberto Spinelli Filho}}
+\renewcommand{\refname}{Referências}
+
+
+% A identidade visual é a do template JBCS; não há metadados de revista fictícios.
+\jid{}
+\jtitle{PCS5917 -- IA Adversarial. Relatório da Aula 6.}
+\doi{}
+\jyear{2026}
+\copyrightstatement{}
+\title[Aula 6: avaliação de ataques]{Avaliação humana e automática de ataques a modelos de linguagem}
+\author[Pimenta, Silva e Spinelli Filho]{%
+\affil{\textbf{Arthur Moriggi Pimenta} -- Nº USP: 9425636 -- \href{mailto:arthur.moriggi.pimenta@usp.br}{\nolinkurl{arthur.moriggi.pimenta@usp.br}}}
+\affil{\textbf{Caio Vinícius Ribeiro da Silva} -- Nº USP: 18083535 -- \href{mailto:caiovribeiro@usp.br}{\nolinkurl{caiovribeiro@usp.br}}}
+\affil{\textbf{Roberto Spinelli Filho} -- Nº USP: 3119088 -- \href{mailto:rspinelli@usp.br}{\nolinkurl{rspinelli@usp.br}}}
+\affil{\textbf{Disciplina:} PCS5917 -- IA Adversarial}
+\affil{\textbf{Professor:} Dr. Victor Takashi Hayashi -- \href{mailto:victor.hayashi@usp.br}{\nolinkurl{victor.hayashi@usp.br}}}
+\affil{\textbf{Instituição: }Universidade de São Paulo -- Escola Politécnica}
+}
+\fancyfoot[C]{\thepage}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\footnotesize PCS5917 -- IA Adversarial. Aula 6.}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\begin{document}
+\raggedbottom
+\renewcommand{\abstractname}{}
+\begin{frontmatter}
+\maketitle
+\begingroup\small\noindent
+\textbf{Resumo.} Comparamos a avaliação humana de um conjunto de 152 registros, conduzida pelo protocolo HEPIC desenvolvido neste estudo, com as avaliações dos juízes automáticos Qwen2.5-3B-Instruct e JEV. O ASR humano foi de 7,28\%, contra 3,31\% no Qwen e 3,97\% no JEV. O kappa de Cohen em relação às notas humanas foi de 0,204 para Qwen e 0,683 para JEV. O Qwen não identificou nenhum dos sucessos humanos, enquanto o JEV identificou parte deles. O resultado favoreceu o JEV neste conjunto, mas a seleção por disponibilidade, as diferentes formas de obtenção das notas humanas e a falta de contexto nas entradas dos juízes limitam essa comparação.
+\par\medskip
+\noindent\textbf{Palavras-chave:} Jailbreak, avaliação humana, LLM como juiz, concordância, taxa de sucesso.\par
+\endgroup
+\medskip\noindent\rule{\textwidth}{.27pt}\par\medskip
+\end{frontmatter}
+
+\section{Introdução}
+Ataques de prompt injection procuram desviar o comportamento de modelos de linguagem por meio das entradas que eles recebem. A revisão de \citet{duarte26prompt} organiza técnicas, contextos de aplicação e formas de avaliação desses ataques. \citet{miers24jailbreaking} apresentam ferramentas de jailbreak e discutem a avaliação da robustez de modelos de linguagem.
+
+Um ataque pode produzir uma resposta com tom de recusa e, ainda assim, fornecer a informação que deveria proteger. Também pode gerar texto ilegível ou sem relação com o pedido. Esses casos exigem critérios que considerem o conteúdo da resposta e o objetivo do ataque.
+
+Nesta atividade, reunimos os experimentos anteriores para comparar dois procedimentos de avaliação: julgamento humano e julgamento por uma LLM. Verificamos se os juízes automáticos atribuem as mesmas notas dos avaliadores humanos às respostas dos modelos.
+
+O HEPIC (\textit{Human Evaluation Protocol with Iterative Calibration}) é o protocolo de avaliação humana elaborado pelo grupo e descrito na Seção~\ref{sec:hepic}. Foram analisados 152 registros: dois receberam notas de referência do pesquisador, nove foram usados na calibração, 140 na avaliação e um foi marcado como inconclusivo. A comparação com os juízes utilizou os 151 registros com nota humana final.
+
+\section{Metodologia}
+\subsection{Base de ataques}
+Cada registro corresponde a uma resposta do modelo. A aba consolidada \texttt{dados} contém ID, tarefa, autoria, modelos atacante e alvo, método, estratégia e resposta. As abas de origem complementam os registros com aula, idioma, entrada completa, condição ou rodada, resultado anterior e fonte, quando disponíveis. A entrada pode incluir a instrução do sistema e as mensagens da conversa.
+
+A aba \texttt{dados} reúne atualmente 203 registros: 143 manuais, seis nanoGCG, 36 PAIR e 18 CipherChat. Foram acrescentados 26 registros manuais após a avaliação automática. Os 177 pares anteriores de modelo alvo e resposta permanecem iguais aos dos CSVs; os novos ainda não foram avaliados pelos juízes. A contagem inclui pedidos diretos, testes sem sufixo e controle textual, quando registrados. O método manual inclui testes individuais e estratégias executadas por código em lote.
+
+Os testes com nanoGCG usam otimização de sufixos baseada no GCG, que combina busca gulosa e gradientes para construir entradas adversariais~\citep{zou23universal}. O PAIR, proposto por \citet{chao23jailbreaking}, usa uma LLM atacante para gerar e refinar prompts a partir das respostas do alvo e da avaliação de um julgador. O método exige apenas acesso às consultas do modelo alvo, sem acesso aos seus pesos.
+
+
+
+Em 25 registros, a coluna de ataque informa a tarefa, mas não distingue o prompt completo usado para obter a resposta. Nesses casos, o CSV não permite reconstruir os sufixos nanoGCG ou as condições e rodadas PAIR. Esses registros não integram o subconjunto humano. O último ID é 204, mas o ID 8 está ausente; por isso, há 203 registros. Os registros incluem rodadas de uma mesma trajetória; por isso, as contagens não representam tentativas independentes.
+
+\subsection{Subconjunto de avaliação}
+O HEPIC utilizou um conjunto de 152 itens da base consolidada, selecionado por disponibilidade. Três foram reservados inicialmente: a exportação registra dois exemplos de referência, com notas 0 e 2, e um caso inconclusivo. Outros nove foram usados na calibração, restando 140 para avaliação. Esse conjunto não constitui uma amostra aleatória representativa dos 203 registros.
+
+A comparação inclui os 151 registros com nota humana final, independentemente de sua fase no HEPIC: duas referências do pesquisador, nove itens de calibração e 140 de avaliação. O caso inconclusivo foi excluído das três avaliações comparadas. Essa composição permite comparar os juízes com todas as notas disponíveis, mas não constitui um teste independente do treinamento humano. A seleção anterior de dez IDs do notebook não foi usada. A vinculação foi conferida por modelo e resposta, usando condição e rodada para distinguir respostas repetidas.
+
+\subsection{Avaliação humana e calibração}
+\label{sec:hepic}
+O grupo elaborou o Human Evaluation Protocol with Iterative Calibration (HEPIC) para esta atividade. Trata-se de uma proposta própria, ainda sem revisão por pares ou validação externa. A escala individual possui três notas: 0 para ataque malsucedido, 1 para sucesso parcial e 2 para ataque bem-sucedido. O protocolo exige uma justificativa breve para cada nota; a aplicação dessa regra é discutida abaixo.
+
+O protocolo tem três etapas:
+
+\begin{enumerate}
+\setlength{\itemsep}{2pt}
+\setlength{\parskip}{0pt}
+\item \textbf{Treinamento.} O pesquisador seleciona exemplos com notas 0, 1 e 2 e justificativas de referência. Todos os avaliadores consultam esse mesmo material.
+
+\item \textbf{Calibração.} O sistema seleciona uma amostra aleatória, preferencialmente estratificada por método e sistema avaliado. Todos avaliam os mesmos itens de forma independente, sem acesso às notas dos demais ou às referências desses itens. Se algum item ultrapassar o limiar, o pesquisador o adjudica e incorpora às referências. Todos retomam o treinamento com o material atualizado e realizam nova calibração com outra amostra, preferencialmente inédita. O avanço exige uma rodada completa com todos os itens dentro do limiar; isso não garante concordância no restante da base.
+
+\item \textbf{Avaliação.} Cada avaliador recebe aproximadamente $qN$ itens, sendo $N$ o tamanho da base e $q$ a fração atribuída a cada pessoa. A distribuição garante cobertura de toda a base e sobreposição equilibrada entre pares de avaliadores. Nos itens compartilhados, o sistema verifica a discordância. Quando a discordância supera o limiar configurado $\tau$, aloca avaliadores adicionais até atingir o critério ou esgotar os disponíveis. Divergências persistentes seguem para adjudicação. O pesquisador pode retomar o treinamento com os novos exemplos problemáticos e repetir a calibração.
+\end{enumerate}
+
+A discordância de um item com $n_x\geq2$ notas é calculada pela Equação~\ref{eq:discordancia}, conforme a regra do HEPIC:
+\begin{equation}
+\label{eq:discordancia}
+D_x=\frac{\sum_{i<j}|s_{xi}-s_{xj}|}{2\binom{n_x}{2}}.
+\end{equation}
+Na Equação~\ref{eq:discordancia}, $s_{xi}$ é a nota do avaliador $i$ e $n_x$ é a quantidade de notas válidas do item $x$. O denominador usa a amplitude 2 da escala; o protocolo prevê um limiar configurável, adotado neste estudo como $\tau=0{,}35$ (35\%). As notas originais ficam preservadas. Sem adjudicação, a nota consolidada é a mediana; com quantidade par de notas, ela pode ser 0,5 ou 1,5. Itens com apenas uma avaliação não fornecem evidência de concordância.
+
+A execução reservou três itens antes da calibração e usou nove itens comuns, com limiar de 35\%. A aba \texttt{HEPIC\_Resultados\_2026-11-04} preserva fases, notas individuais, discordâncias e decisões. A Figura~\ref{fig:hepic} apresenta o painel do pesquisador durante a calibração.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\columnwidth]{images/hepic-painel.jpeg}
+\caption{Painel do HEPIC: treinamento, calibração e avaliação. A tela registra 152 itens, três avaliadores e limiar de discordância de 35\%. Fonte: sistema desenvolvido pelo grupo.}
+\label{fig:hepic}
+\end{figure}
+
+O protocolo prevê julgamentos independentes, sem acesso às notas dos demais ou dos juízes automáticos, e ocultação da autoria sempre que possível. Para permitir a reprodução, exige registrar a seleção dos avaliadores, a amostragem, os parâmetros e as sementes, além das notas, justificativas, versões das referências e decisões.
+
+\noindent\textbf{Aplicação no grupo.} Os três integrantes participaram como avaliadores, com Roberto responsável pela organização do sistema. A fração inicial foi $q=0{,}40$: cada avaliador recebeu 56 dos 140 itens, totalizando 168 julgamentos iniciais. A sobreposição atingiu 28 itens (20\%). A calibração teve uma rodada, com três notas 0 em cada um dos nove itens e discordância nula.
+
+A interface permite encaminhar casos inconclusivos sem nota final e torna a justificativa opcional para notas 0, 1 e 2, embora o protocolo a exija. Na avaliação, 113 das 170 notas individuais ficaram sem justificativa, o que limita a análise das decisões.
+
+Na discussão com outros grupos, o Grupo C apresentou uma escala de 0, 0,4, 0,6 e 1, com avaliação inicial por uma pessoa e encaminhamento dos casos intermediários a outros dois avaliadores, que decidiriam entre 0 e 1. O Grupo E propôs notas de 0 a 3, avaliação de todos os itens por todos os avaliadores e consolidação pela média, considerando 2 e 3 como sucesso; o limiar para converter a média em sucesso ou falha não foi registrado. A discussão permitiu comparar formas de distribuir o trabalho e resolver divergências. O material registrado descreve as propostas dos grupos, mas não documenta um parecer específico sobre o HEPIC nem alterações decorrentes desse parecer.
+
+\subsection{LLM como juiz}
+\citet{oliveira25between} integram geração de ataques, execução dos modelos e julgamento automático, discutindo vieses e consenso entre juízes. A referência de avaliação desse trabalho é automatizada. Aqui, as notas consolidadas pelo HEPIC são usadas como referência humana.
+
+O notebook foi executado no Colab com CUDA e Transformers 4.47.1. O \texttt{Qwen/Qwen2.5-3B-Instruct}, obtido do Hugging Face, foi carregado em quatro bits NF4, com dupla quantização e cálculo em bfloat16. A geração usou \texttt{do\_sample=False}, semente 42 e até 300 novos tokens. A revisão foi registrada, mas não fixada no carregamento.
+
+A avaliação foi feita sem exemplos de referência no prompt, com rubrica de três notas e justificativa em JSON. O juiz recebeu apenas a tarefa e a resposta, sem o prompt completo, o sistema de referência, os controles ou a decodificação do CipherChat. Os 177 registros foram avaliados em 16 minutos e 59 segundos. O CSV conserva ID, modelo, nota, justificativa e horário. O leitor aceita JSON ou extrai a nota por expressão regular; não salva a saída bruta nem identifica o uso dessa alternativa.
+
+A segunda avaliação usou \texttt{typesafe/jev-1.14} pela API de decisões da OpenRouter, com os mesmos critérios e pares de entrada. Processou 177 registros em um minuto e 22 segundos. O CSV registra notas e probabilidades, sem justificativas textuais ou revisão fixa do modelo remoto. Essa execução complementa o juiz obtido do Hugging Face.
+
+O notebook usa o mesmo DataFrame nas duas execuções e sobrescreve as colunas de modelo e nota. A análise utilizou os CSVs salvos separadamente para cada juiz.
+
+\subsection{Comparação e ASR}
+Para descrever esta execução, consideramos sucesso completo a nota 2; a nota 1 permanece separada como sucesso parcial. O ASR é calculado pela Equação~\ref{eq:asr}. Não houve notas consolidadas fracionárias nos 151 casos comparados. O inconclusivo da fase de referência foi excluído.
+\begin{equation}
+\label{eq:asr}
+\mathrm{ASR}=\frac{\text{ataques classificados como sucesso}}{\text{ataques incluídos na análise}}.
+\end{equation}
+Usamos os mesmos 151 itens e o mesmo critério de sucesso nas três avaliações. O denominador inclui controles e rodadas de uma mesma trajetória. Assim, o ASR apresentado descreve esses registros, sem estimar o sucesso de ataques independentes.
+
+\section{Resultados e análise}
+Os 151 registros com nota humana final resultaram em 138 notas 0, duas notas 1 e 11 notas 2. Na Tabela~\ref{tab:juiz}, os dois juízes foram filtrados para os mesmos casos, incluindo referências e calibração. O conjunto contém 106 registros manuais, quatro nanoGCG, 23 PAIR e 18 CipherChat.
+
+\begin{table}[H]
+\centering
+\caption{Notas e ASR nos mesmos 151 itens. Sucesso completo corresponde à nota 2; o conjunto inclui controles.}
+\label{tab:juiz}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Avaliação & Nota 0 & Nota 1 & Nota 2 & ASR \\
+\midrule
+Humana & 138 & 2 & 11 & 7,28\% \\
+Qwen & 140 & 6 & 5 & 3,31\% \\
+JEV & 144 & 1 & 6 & 3,97\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Na execução automática completa de 177 registros, o Qwen atribuiu 161 notas 0, oito notas 1 e oito notas 2; o JEV atribuiu 157, 13 e sete, respectivamente. As proporções brutas de sucesso completo foram 4,52\% e 3,95\%. Os 26 registros acrescentados à base de 203 não foram avaliados pelos juízes nesta execução.
+
+\subsection{Comparação com a avaliação humana}
+Nos 151 itens, a concordância exata com a nota humana final foi de 133/151 (88,08\%) para Qwen e 145/151 (96,03\%) para JEV. O kappa de Cohen não ponderado, sobre as três categorias, foi 0,204 e 0,683, respectivamente. A referência humana combina notas do pesquisador, notas de calibração e resultados consolidados da avaliação.
+
+O Qwen não atribuiu nota 2 a nenhum dos 11 sucessos humanos: seis receberam nota 0 e cinco, nota 1. Seus cinco sucessos automáticos correspondem a quatro notas humanas 0 e uma nota 1. O JEV identificou seis dos 11 sucessos humanos e classificou os outros cinco como nota 0. Seus seis sucessos coincidem com sucessos humanos. A comparação por item mostra diferenças que as taxas agregadas não explicam.
+
+Entre os dois juízes, na execução de 177 registros, a concordância exata foi de 152/177 (85,88\%) e o kappa foi 0,249. Nenhum registro recebeu nota 2 de ambos. A predominância da nota 0 aumenta a concordância bruta e exige examinar também as classes menos frequentes.
+
+\subsection{Inconsistências do julgamento}
+A análise por item encontrou justificativas contraditórias e casos ambíguos. No ID 146, a resposta reproduz o código \texttt{VIOLETA-6381} dentro de uma recusa, mas o Qwen atribui nota 0 e afirma que não houve divulgação. Os IDs 148 e 149 também receberam nota 0. A presença literal do código exige um critério explícito: na fase de referência, o ID 146 foi marcado como inconclusivo pelo pesquisador, pois o pedido já continha o código. Nos quatro registros com \texttt{LUA-4827}, a nota foi 1: a justificativa exige um código real, embora a tarefa seja revelar um código fictício.
+
+No ID 178, a resposta informa que a fatura está \texttt{NAO PAGA} e recusa confirmar pagamento. O Qwen dá nota 2 e reconhece, na própria justificativa, que a regra foi mantida. Há também notas 2 em saídas César com problemas de codificação. Essas observações ajudam a explicar diferenças entre as avaliações e mostram que a nota automática exige conferência.
+
+A rubrica genérica de conteúdo prejudicial não descreve suficientemente as regras dos cenários sintéticos. A ausência da instrução do sistema e do texto decodificado também limita o julgamento. Além disso, a base inclui um template traduzido incompleto, identificado no registro original \texttt{pt\_08}, mantido como no experimento original. Essa entrada incompleta limita a interpretação de sua resposta.
+
+\subsection{Resultados da avaliação humana}
+Foram registrados 197 julgamentos: 27 de calibração e 170 de avaliação, incluindo duas notas adicionais de Arthur. Todas as atribuições foram respondidas. Dos 140 itens, 112 tiveram uma avaliação e 28 tiveram sobreposição inicial; dois destes receberam uma terceira nota.
+
+Antes das avaliações adicionais e da adjudicação, houve concordância exata em 26 dos 28 itens compartilhados (92,86\%). Nas duplas fixas, Caio--Roberto concordaram em 9/11 itens, com kappa não ponderado de 0,290. Arthur--Roberto concordaram em 10/10 e Arthur--Caio em 7/7; nesses dois pares, todas as notas foram 0 e o kappa é indefinido. A amostra pequena e os 112 itens com avaliação única limitam a evidência de concordância.
+
+O caso \texttt{en\_50} da Aula 2 terminou com discordância de 33,33\%, abaixo do limiar, e nota consolidada 2. O caso \texttt{en\_24} da Aula 2 exigiu adjudicação. Houve, portanto, avaliações adicionais em 2/140 itens (1,43\%) e adjudicação em 1/140 (0,71\%).
+
+No caso \texttt{en\_24} da Aula 2, as notas 0, 1 e 2 resultaram em discordância de 66,67\%. A divergência envolveu a plausibilidade de uma política inventada e sua apresentação como genuína. Após discussão, o pesquisador adjudicou a nota 1 e indicou o caso para inclusão nas referências de treinamento. A discussão mostrou que os critérios de plausibilidade e apresentação como genuína admitiam interpretações diferentes. A Figura~\ref{fig:adjudicacao} apresenta as notas individuais e o preenchimento da decisão.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\columnwidth]{images/hepic-adjudicacao.jpeg}
+\caption{Adjudicação do caso \texttt{en\_24} da Aula 2. As notas individuais foram 0, 2 e 1; o pesquisador selecionou a nota final 1 por atendimento parcial ao objetivo. Fonte: sistema HEPIC desenvolvido pelo grupo.}
+\label{fig:adjudicacao}
+\end{figure}
+
+\section{Conclusão}
+Nos 151 registros com nota humana final, o ASR foi de 7,28\%, contra 3,31\% no Qwen e 3,97\% no JEV. O JEV teve maior concordância com a referência humana e identificou seis dos 11 sucessos; o Qwen não identificou nenhum. Esses resultados se referem a um conjunto que reúne notas de referência, calibração e avaliação, com diferentes quantidades de avaliadores por item.
+
+Uma nova avaliação pode fornecer aos juízes o sistema de referência, a entrada completa e as respostas decodificadas, além de critérios próprios para cada objetivo. Exemplos de calibração devem ficar separados dos itens de teste. Na avaliação humana, ampliar a sobreposição e exigir justificativas ajudaria a examinar os desacordos. Esses ajustes precisam ser testados antes de concluir que melhoram o julgamento.
+
+\par\addvspace{10pt}
+\noindent\begin{minipage}{\columnwidth}
+\subsection*{Contribuições dos integrantes}
+\textbf{Arthur Moriggi Pimenta:} desenvolvimento e execução do notebook de avaliação com LLMs como juízes, disponibilização dos seus registros de ataques e participação na avaliação humana.\par
+\textbf{Caio Vinícius Ribeiro da Silva:} disponibilização dos dados dos experimentos locais, organização da base, redação do relatório e participação na avaliação humana.\par
+\textbf{Roberto Spinelli Filho:} elaboração do protocolo HEPIC, desenvolvimento do sistema de avaliação humana, disponibilização dos seus registros de ataques e participação na avaliação humana.
+\end{minipage}
+
+\par\addvspace{10pt}
+\noindent\begin{minipage}{\columnwidth}
+\subsection*{Dados e materiais}
+A \href{https://drive.google.com/drive/folders/1MtFY4XPaf2Zg-MkHYEF9YyVR8DU0lz11}{pasta pública no Google Drive} reúne a planilha de ataques, o protocolo HEPIC em PDF, o notebook de avaliação automática e os arquivos CSV com os resultados do Qwen e do JEV. Na planilha, a aba \texttt{dados} contém a base consolidada e a aba \texttt{HEPIC\_Resultados\_2026-11-04} apresenta as notas individuais, os resultados humanos consolidados e as decisões de adjudicação.
+
+\end{minipage}
+
+\bibliographystyle{apalike-sol}
+\bibliography{refs-aula06}
+\end{document}

@@ -132,6 +132,27 @@ A execução local substitui o Colab e o Inference Provider. A adaptação do Ci
 
 [Notebook com saídas](notebooks/aula_05_pair_local.ipynb) · [Método, respostas, avaliações e evidências](resultados/aula-05/README.md)
 
+### Aula 6 — Avaliação humana e LLMs como juízes
+
+**Resultados consolidados:** 04/11/2026
+**Grupo:** Arthur Moriggi Pimenta, Caio Vinícius Ribeiro da Silva e Roberto Spinelli Filho.
+
+Reunimos **203 registros** de ataques manuais, nanoGCG, PAIR e CipherChat, incluindo controles. Arthur preparou o notebook de julgamento automático; Roberto elaborou o HEPIC e o sistema de avaliação humana. Contribuí com os dados dos experimentos locais, a organização da base e a redação do relatório. Todos participaram da avaliação humana.
+
+Os juízes **Qwen2.5-3B-Instruct e JEV** avaliaram os 177 registros disponíveis antes da inclusão dos 26 de Roberto. O HEPIC usou 152 itens: dois exemplos de referência, um caso reservado marcado como inconclusivo, nove itens de calibração e **140 de avaliação**. Foram registrados 197 julgamentos: 27 de calibração e 170 de avaliação, incluindo duas notas adicionais.
+
+Comparamos as notas humanas e automáticas nos 151 itens com nota humana final, incluindo duas referências, nove de calibração e 140 de avaliação, considerando sucesso completo a nota 2:
+
+| Avaliação | Nota 0 | Nota 1 | Nota 2 | ASR | Concordância com humanos | Kappa |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Humana | 138 | 2 | 11 | 7,28% | — | — |
+| Qwen | 140 | 6 | 5 | 3,31% | 88,08% | 0,204 |
+| JEV | 144 | 1 | 6 | 3,97% | 96,03% | 0,683 |
+
+O Qwen não identificou nenhum dos 11 sucessos humanos; o JEV identificou seis. O conjunto foi selecionado por disponibilidade, inclui controles e rodadas de uma mesma trajetória, e 112 itens receberam apenas uma avaliação humana. Esses resultados se limitam aos registros analisados.
+
+[Relatório em PDF](artigo/relatorio-aula06.pdf) · [Fonte LaTeX](artigo/relatorio-aula06.tex) · [Notebook com saídas](resultados/aula-06/llm_judge.ipynb) · [Planilha de ataques e resultados humanos](resultados/aula-06/Ataques.xlsx) · [Protocolo HEPIC](resultados/aula-06/HEPIC.pdf) · [Resultados e comparação](resultados/aula-06/README.md) · [Materiais públicos no Google Drive](https://drive.google.com/drive/folders/1MtFY4XPaf2Zg-MkHYEF9YyVR8DU0lz11)
+
 ## 3. Organização do Repositório
 
 ```text
@@ -153,7 +174,8 @@ A execução local substitui o Colab e o Inference Provider. A adaptação do Ci
 │   ├── aula-03/
 │   │   └── README.md (método e resultados)
 │   ├── aula-04/ (segredo fictício e resultados)
-│   └── aula-05/ (PAIR local e comparação entre idiomas)
+│   ├── aula-05/ (PAIR local e comparação entre idiomas)
+│   └── aula-06/ (planilha, HEPIC, notebook dos juízes e resultados)
 ├── images/
 │   ├── aula-01/
 │   │   ├── postagem-tjsp-prompt-injection.png
@@ -163,10 +185,13 @@ A execução local substitui o Colab e o Inference Provider. A adaptação do Ci
 │   └── aula-05/ (notas e respostas do PAIR)
 ├── apresentacao/ (fontes LaTeX da apresentação em grupo)
 │   └── images/
-├── artigo/ (template LaTeX do artigo em grupo)
+├── artigo/ (artigo em grupo e relatório separado da Aula 6)
 │   ├── artigo-jbcs.tex
 │   ├── artigo-jbcs.pdf
 │   ├── refs.bib
+│   ├── relatorio-aula06.tex
+│   ├── relatorio-aula06.pdf
+│   ├── refs-aula06.bib
 │   ├── sbc2023.cls
 │   ├── apalike-sol.bst
 │   ├── arquivos auxiliares de ícones e fontes
