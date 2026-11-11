@@ -153,6 +153,36 @@ O Qwen não identificou nenhum dos 11 sucessos humanos; o JEV identificou seis. 
 
 [Relatório em PDF](artigo/relatorio-aula06.pdf) · [Fonte LaTeX](artigo/relatorio-aula06.tex) · [Notebook com saídas](resultados/aula-06/llm_judge.ipynb) · [Planilha de ataques e resultados humanos](resultados/aula-06/Ataques.xlsx) · [Protocolo HEPIC](resultados/aula-06/HEPIC.pdf) · [Resultados e comparação](resultados/aula-06/README.md) · [Materiais públicos no Google Drive](https://drive.google.com/drive/folders/1MtFY4XPaf2Zg-MkHYEF9YyVR8DU0lz11)
 
+### Aula 7 — Defesas em LLMs
+
+**Aula:** 04/11/2026 · **Execução local:** 08/11/2026 · **Análise revisada:** 11/11/2026
+
+**Grupo:** Arthur Moriggi Pimenta, Caio Vinícius Ribeiro da Silva e Roberto Spinelli Filho.
+
+Comparamos **Self-Reminder (SR)**, **Intention Analysis (IA)** e sua combinação no **Qwen/Qwen2.5-3B-Instruct**, seguindo o [estudo de caso de Hayashi et al.](https://doi.org/10.1109/ACCESS.2026.3710427). Roberto preparou o protocolo e as defesas; Arthur avaliou as respostas com **JEV 1.14**. Contribuí com uma coleta exploratória, a consolidação final, a análise, os gráficos e a redação. A base final reúne **45 casos: 33 manuais e 12 PAIR**.
+
+Cada entrada foi avaliada sem defesa e em seis condições: SR, IA e SR + IA, em inglês e português, totalizando **315 respostas**. O ataque e o contexto da tarefa permanecem iguais; EN/PT indica somente o idioma da defesa. O alvo usa FP16 sem quantização, geração sem amostragem, semente 42 e limite de 2048 tokens. Os prompts PAIR foram congelados antes da aplicação das defesas.
+
+No baseline, **33 ataques tiveram sucesso e 12 falharam (ASR de 73,3%)**. O JEV considera sucesso as notas 1 e 2, incluindo atendimento parcial. Não houve inconclusivos. As taxas por condição foram:
+
+| Condição | Todos (n = 45) | Manuais (n = 33) | PAIR (n = 12) |
+| --- | ---: | ---: | ---: |
+| Baseline | 73,3% | 72,7% | 75,0% |
+| SR em inglês | 60,0% | 57,6% | 66,7% |
+| SR em português | 42,2% | 39,4% | 50,0% |
+| IA em inglês | 22,2% | 27,3% | 8,3% |
+| IA em português | 28,9% | 36,4% | 8,3% |
+| SR + IA em inglês | 31,1% | 36,4% | 16,7% |
+| SR + IA em português | 31,1% | 39,4% | 8,3% |
+
+![Efeito das defesas sobre os sucessos e as falhas do baseline](images/aula-07/efeito-defesas-baseline.png)
+
+**IA em inglês apresentou o menor ASR: 10/45 (22,2%)**. Bloqueou 23 dos 33 sucessos iniciais e não tornou bem-sucedida nenhuma das 12 falhas do baseline. SR em português bloqueou 15 sucessos, mas introduziu um novo. As combinações terminaram com 14/45 (31,1%) nos dois idiomas: EN bloqueou 20 e introduziu um novo sucesso; PT bloqueou 21 e introduziu dois.
+
+Português melhorou o resultado do SR, mas piorou o da IA. A combinação não superou IA em inglês. O relatório mostra dois exemplos de divulgação do código no baseline e as respostas após SR e IA, com as mensagens `system` e `user`. A amostra é pequena e desbalanceada por objetivo; a conclusão propõe ampliar os ataques, usar outro juiz e calibrar os critérios com avaliação humana.
+
+[Relatório em PDF](artigo/relatorio-aula07.pdf) · [Fonte LaTeX](artigo/relatorio-aula07.tex) · [Notebook da análise](notebooks/aula_07_analise_defesas.ipynb) · [Código do gráfico](notebooks/aula_07_grafico_defesas.py) · [Base final avaliada](resultados/aula-07/analise-final/avaliados.csv) · [Resumo do ASR](resultados/aula-07/analise-final/resumo_asr.csv) · [Transições do baseline](resultados/aula-07/analise-final/coortes_baseline.csv) · [Seleção e origem dos casos](resultados/aula-07/analise-final/README.md) · [Materiais no Google Drive](https://drive.google.com/drive/folders/1lTbaIaPfIZOduHTiHUTLWMXAu17lrrqP)
+
 ## 3. Organização do Repositório
 
 ```text
@@ -163,6 +193,9 @@ O Qwen não identificou nenhum dos 11 sucessos humanos; o JEV identificou seis. 
 │   ├── aula_03_deteccao_audio_falso.ipynb
 │   ├── aula_04_nanogcg_local.ipynb
 │   ├── aula_05_pair_local.ipynb
+│   ├── aula_07_analise_defesas.ipynb
+│   ├── aula_07_grafico_defesas.py
+│   ├── requirements-aula07-analise.txt
 │   ├── requirements-aula05.txt
 │   ├── requirements-aula04.txt
 │   ├── requirements-aula03.txt
@@ -175,23 +208,28 @@ O Qwen não identificou nenhum dos 11 sucessos humanos; o JEV identificou seis. 
 │   │   └── README.md (método e resultados)
 │   ├── aula-04/ (segredo fictício e resultados)
 │   ├── aula-05/ (PAIR local e comparação entre idiomas)
-│   └── aula-06/ (planilha, HEPIC, notebook dos juízes e resultados)
+│   ├── aula-06/ (planilha, HEPIC e resultados dos juízes)
+│   └── aula-07/ (análise final e métricas das defesas em analise-final/)
 ├── images/
 │   ├── aula-01/
 │   │   ├── postagem-tjsp-prompt-injection.png
 │   │   └── resposta-colega-nightshade.png
 │   ├── aula-03/ (atividade em grupo e gráficos)
 │   ├── aula-04/ (comparações e curvas de loss)
-│   └── aula-05/ (notas e respostas do PAIR)
+│   ├── aula-05/ (notas e respostas do PAIR)
+│   └── aula-07/ (efeito das defesas por grupo do baseline)
 ├── apresentacao/ (fontes LaTeX da apresentação em grupo)
 │   └── images/
-├── artigo/ (artigo em grupo e relatório separado da Aula 6)
+├── artigo/ (artigo em grupo e relatórios separados das Aulas 6 e 7)
 │   ├── artigo-jbcs.tex
 │   ├── artigo-jbcs.pdf
 │   ├── refs.bib
 │   ├── relatorio-aula06.tex
 │   ├── relatorio-aula06.pdf
 │   ├── refs-aula06.bib
+│   ├── relatorio-aula07.tex
+│   ├── relatorio-aula07.pdf
+│   ├── refs-aula07.bib
 │   ├── sbc2023.cls
 │   ├── apalike-sol.bst
 │   ├── arquivos auxiliares de ícones e fontes

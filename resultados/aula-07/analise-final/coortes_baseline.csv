@@ -1,0 +1,8 @@
+condicao,sucessos_baseline,permanecem_sucesso,bloqueados,taxa_sucesso_coorte_pct,falhas_baseline,novos_sucessos,permanecem_falha,taxa_novos_sucessos_pct
+B,33,33,0,100.0,12,0,12,0.0
+SR_EN,33,25,8,75.758,12,2,10,16.667
+SR_PT,33,18,15,54.545,12,1,11,8.333
+IA_EN,33,10,23,30.303,12,0,12,0.0
+IA_PT,33,12,21,36.364,12,1,11,8.333
+SRIA_EN,33,13,20,39.394,12,1,11,8.333
+SRIA_PT,33,12,21,36.364,12,2,10,16.667

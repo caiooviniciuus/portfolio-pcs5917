@@ -1,0 +1,2 @@
+# Preserve espaços e quebras de linha dos prompts/respostas científicos.
+resultados/aula-07/analise-final/*.csv -whitespace

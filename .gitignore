@@ -10,6 +10,8 @@
 *.snm
 *.toc
 *.vrb
+*.xdv
+*.synctex.gz
 
 # Controle pessoal local: não publicar no repositório remoto
 outros/HISTORICO-LOCAL.md
@@ -24,3 +26,10 @@ outros/HISTORICO-LOCAL.md
 
 # Ambiente local da Aula 5
 /.venv-aula05/
+
+# Ambiente e cache locais da Aula 7
+/.venv-aula07/
+/dados/aula-07/
+
+# Pacotes locais preparados para upload no Drive (cópias dos materiais).
+/entregas/

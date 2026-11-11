@@ -1,0 +1,190 @@
+{
+  "casos": 45,
+  "respostas": 315,
+  "manuais": 33,
+  "automaticos": 12,
+  "baseline": {
+    "sucesso": 33,
+    "falha": 12
+  },
+  "idiomas": {
+    "pt": 7,
+    "en": 38
+  },
+  "taxas_gerais": [
+    {
+      "tipo": "todos",
+      "condicao": "B",
+      "total": 45,
+      "sucessos": 33,
+      "falhas": 12,
+      "inconclusivos": 0,
+      "denominador": 45,
+      "asr_pct": 73.333,
+      "pares_conclusivos": 45,
+      "sucesso_para_falha": 0,
+      "falha_para_sucesso": 0
+    },
+    {
+      "tipo": "todos",
+      "condicao": "SR_EN",
+      "total": 45,
+      "sucessos": 27,
+      "falhas": 18,
+      "inconclusivos": 0,
+      "denominador": 45,
+      "asr_pct": 60.0,
+      "pares_conclusivos": 45,
+      "sucesso_para_falha": 8,
+      "falha_para_sucesso": 2
+    },
+    {
+      "tipo": "todos",
+      "condicao": "SR_PT",
+      "total": 45,
+      "sucessos": 19,
+      "falhas": 26,
+      "inconclusivos": 0,
+      "denominador": 45,
+      "asr_pct": 42.222,
+      "pares_conclusivos": 45,
+      "sucesso_para_falha": 15,
+      "falha_para_sucesso": 1
+    },
+    {
+      "tipo": "todos",
+      "condicao": "IA_EN",
+      "total": 45,
+      "sucessos": 10,
+      "falhas": 35,
+      "inconclusivos": 0,
+      "denominador": 45,
+      "asr_pct": 22.222,
+      "pares_conclusivos": 45,
+      "sucesso_para_falha": 23,
+      "falha_para_sucesso": 0
+    },
+    {
+      "tipo": "todos",
+      "condicao": "IA_PT",
+      "total": 45,
+      "sucessos": 13,
+      "falhas": 32,
+      "inconclusivos": 0,
+      "denominador": 45,
+      "asr_pct": 28.889,
+      "pares_conclusivos": 45,
+      "sucesso_para_falha": 21,
+      "falha_para_sucesso": 1
+    },
+    {
+      "tipo": "todos",
+      "condicao": "SRIA_EN",
+      "total": 45,
+      "sucessos": 14,
+      "falhas": 31,
+      "inconclusivos": 0,
+      "denominador": 45,
+      "asr_pct": 31.111,
+      "pares_conclusivos": 45,
+      "sucesso_para_falha": 20,
+      "falha_para_sucesso": 1
+    },
+    {
+      "tipo": "todos",
+      "condicao": "SRIA_PT",
+      "total": 45,
+      "sucessos": 14,
+      "falhas": 31,
+      "inconclusivos": 0,
+      "denominador": 45,
+      "asr_pct": 31.111,
+      "pares_conclusivos": 45,
+      "sucesso_para_falha": 21,
+      "falha_para_sucesso": 2
+    }
+  ],
+  "coortes": [
+    {
+      "condicao": "B",
+      "sucessos_baseline": 33,
+      "permanecem_sucesso": 33,
+      "bloqueados": 0,
+      "taxa_sucesso_coorte_pct": 100.0,
+      "falhas_baseline": 12,
+      "novos_sucessos": 0,
+      "permanecem_falha": 12,
+      "taxa_novos_sucessos_pct": 0.0
+    },
+    {
+      "condicao": "SR_EN",
+      "sucessos_baseline": 33,
+      "permanecem_sucesso": 25,
+      "bloqueados": 8,
+      "taxa_sucesso_coorte_pct": 75.758,
+      "falhas_baseline": 12,
+      "novos_sucessos": 2,
+      "permanecem_falha": 10,
+      "taxa_novos_sucessos_pct": 16.667
+    },
+    {
+      "condicao": "SR_PT",
+      "sucessos_baseline": 33,
+      "permanecem_sucesso": 18,
+      "bloqueados": 15,
+      "taxa_sucesso_coorte_pct": 54.545,
+      "falhas_baseline": 12,
+      "novos_sucessos": 1,
+      "permanecem_falha": 11,
+      "taxa_novos_sucessos_pct": 8.333
+    },
+    {
+      "condicao": "IA_EN",
+      "sucessos_baseline": 33,
+      "permanecem_sucesso": 10,
+      "bloqueados": 23,
+      "taxa_sucesso_coorte_pct": 30.303,
+      "falhas_baseline": 12,
+      "novos_sucessos": 0,
+      "permanecem_falha": 12,
+      "taxa_novos_sucessos_pct": 0.0
+    },
+    {
+      "condicao": "IA_PT",
+      "sucessos_baseline": 33,
+      "permanecem_sucesso": 12,
+      "bloqueados": 21,
+      "taxa_sucesso_coorte_pct": 36.364,
+      "falhas_baseline": 12,
+      "novos_sucessos": 1,
+      "permanecem_falha": 11,
+      "taxa_novos_sucessos_pct": 8.333
+    },
+    {
+      "condicao": "SRIA_EN",
+      "sucessos_baseline": 33,
+      "permanecem_sucesso": 13,
+      "bloqueados": 20,
+      "taxa_sucesso_coorte_pct": 39.394,
+      "falhas_baseline": 12,
+      "novos_sucessos": 1,
+      "permanecem_falha": 11,
+      "taxa_novos_sucessos_pct": 8.333
+    },
+    {
+      "condicao": "SRIA_PT",
+      "sucessos_baseline": 33,
+      "permanecem_sucesso": 12,
+      "bloqueados": 21,
+      "taxa_sucesso_coorte_pct": 36.364,
+      "falhas_baseline": 12,
+      "novos_sucessos": 2,
+      "permanecem_falha": 10,
+      "taxa_novos_sucessos_pct": 16.667
+    }
+  ],
+  "exemplos": [
+    "roberto-conf-013",
+    "roberto-conf-005"
+  ]
+}
