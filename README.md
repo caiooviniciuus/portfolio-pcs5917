@@ -19,7 +19,8 @@ O objetivo é documentar individualmente o processo de aprendizagem sobre:
 - aplicação de IA em cibersegurança (Aula 3);
 - ataques adversariais contra sistemas de IA (Aulas 4 e 5);
 - avaliação de ataques e uso de LLMs como juiz (Aula 6);
-- defesas em Large Language Models (Aula 7).
+- defesas em Large Language Models (Aula 7);
+- geração e detecção de trojans em código e HDL (Aula 8).
 
 Os experimentos realizados durante as aulas devem ser complementados por registros individuais, notebooks, respectivos resultados e referências bibliográficas (citações).
 
@@ -183,6 +184,23 @@ Português melhorou o resultado do SR, mas piorou o da IA. A combinação não s
 
 [Relatório em PDF](artigo/relatorio-aula07.pdf) · [Fonte LaTeX](artigo/relatorio-aula07.tex) · [Notebook da análise](notebooks/aula_07_analise_defesas.ipynb) · [Código do gráfico](notebooks/aula_07_grafico_defesas.py) · [Base final avaliada](resultados/aula-07/analise-final/avaliados.csv) · [Resumo do ASR](resultados/aula-07/analise-final/resumo_asr.csv) · [Transições do baseline](resultados/aula-07/analise-final/coortes_baseline.csv) · [Seleção e origem dos casos](resultados/aula-07/analise-final/README.md) · [Materiais no Google Drive](https://drive.google.com/drive/folders/1lTbaIaPfIZOduHTiHUTLWMXAu17lrrqP)
 
+### Aula 8 — Geração e detecção de trojans
+
+**Relatório:** 17/11/2026 · **Grupo:** Arthur Moriggi Pimenta, Caio Vinícius Ribeiro da Silva e Roberto Spinelli Filho.
+
+Trocamos dois conjuntos de 20 amostras com o Grupo E. Usamos o **PicoRV32** em Verilog (revisão `ef203c2`) como *golden model* e trabalhamos com o Codex (GPT-6 Astra) em sucessivas interações manuais. Preparamos dez refatorações legítimas e dez variantes com alterações deliberadas. Embaralhamos os IDs antes da troca e guardamos o gabarito para comparar com a classificação devolvida.
+
+Na outra direção, avaliamos 20 variantes de **AES em C++** recebidas do Grupo E. Usamos o Codex para localizar diferenças no código e verificamos o efeito de cada mudança diante das seis regras fornecidas pelo grupo, como a independência entre chamadas e a concordância com a implementação de referência.
+
+| Conjunto avaliado | Avaliador | Acurácia | Recall de trojans | Falsos positivos | Falsos negativos |
+| --- | --- | ---: | ---: | ---: | ---: |
+| AES | Grupo A | 100% (20/20) | 100% (10/10) | 0 | 0 |
+| PicoRV32 | Grupo E | 75% (15/20) | 50% (5/10) | 0 | 5 |
+
+O Grupo E confirmou o resultado do AES, conforme registrado no relatório. No PicoRV32, os cinco falsos negativos envolviam histórico, protocolo de memória ou controle do processador. Como a devolutiva trazia apenas os rótulos, propusemos uma revisão *purple team* após a abertura do gabarito. Comparar o comportamento esperado com as evidências usadas para classificar cada amostra permitiria refinar os critérios de inspeção em outra rodada.
+
+[Relatório em PDF](outros/aula-08/relatorio-aula08.pdf) · [Resultados por amostra e evidências](outros/aula-08/README.md)
+
 ## 3. Organização do Repositório
 
 ```text
@@ -235,6 +253,7 @@ Português melhorou o resultado do SR, mas piorou o da IA. A combinação não s
 │   ├── arquivos auxiliares de ícones e fontes
 │   └── images/
 └── outros/
+    ├── aula-08/ (relatório, classificações por amostra e evidências da troca)
     ├── dados/
     └── referencias/
 ```

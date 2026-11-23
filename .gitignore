@@ -16,6 +16,13 @@
 # Controle pessoal local: não publicar no repositório remoto
 outros/HISTORICO-LOCAL.md
 
+# Aula 8: relatório final, índice e resultados por amostra
+/outros/aula-08/*
+!/outros/aula-08/README.md
+!/outros/aula-08/relatorio-aula08.pdf
+!/outros/aula-08/avaliacao_grupo_e.csv
+!/outros/aula-08/comparacao_picorv32.csv
+
 # Dados e ambiente locais da Aula 3
 /dados/aula-03/
 /.venv-aula03/
