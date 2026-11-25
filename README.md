@@ -20,7 +20,8 @@ O objetivo é documentar individualmente o processo de aprendizagem sobre:
 - ataques adversariais contra sistemas de IA (Aulas 4 e 5);
 - avaliação de ataques e uso de LLMs como juiz (Aula 6);
 - defesas em Large Language Models (Aula 7);
-- geração e detecção de trojans em código e HDL (Aula 8).
+- geração e detecção de trojans em código e HDL (Aula 8);
+- revisão por pares e decisão editorial (Aula 9).
 
 Os experimentos realizados durante as aulas devem ser complementados por registros individuais, notebooks, respectivos resultados e referências bibliográficas (citações).
 
@@ -201,6 +202,26 @@ O Grupo E confirmou o resultado do AES, conforme registrado no relatório. No Pi
 
 [Relatório em PDF](outros/aula-08/relatorio-aula08.pdf) · [Resultados por amostra e evidências](outros/aula-08/README.md)
 
+### Aula 9 — Revisão por pares e decisão editorial
+
+**Relatório:** 24/11/2026 · **Grupo:** Arthur Moriggi Pimenta, Caio Vinícius Ribeiro da Silva e Roberto Spinelli Filho.
+
+O Grupo A revisou dois artigos curtos do WCIA 2026. Aplicamos uma rubrica com critérios comuns e critérios próprios para cada categoria. O protocolo tira a média das notas de gpt-5.4-mini, gpt-5.4 e gpt-5.5 após aplicar os pesos dos critérios a cada parecer. Arthur elaborou o parecer humano de cada artigo. Na troca, o Grupo C fez as duas avaliações editoriais.
+
+| Artigo | Protocolo | Parecer humano | Recomendação editorial |
+| --- | ---: | ---: | --- |
+| Detecção de mineração | 77,5% | 72,5% | Aceite condicionado |
+| Autorização de agentes de IA | 97,5% | 100,0% | Aceite condicionado |
+
+No estudo de mineração, a revisão pediu mais detalhes do experimento e conclusões restritas ao modelo e ao conjunto de dados avaliados. O relatório identifica testes estatísticos que o artigo já apresenta e que ficaram fora da meta-revisão. No artigo de posição, a revisão pediu explicitar as premissas de segurança e ajustar o alcance da conclusão.
+
+[Relatório em PDF](artigo/relatorio-aula09.pdf)
+
+| Artigo | Formulário de revisão | Parecer do Grupo C |
+| --- | --- | --- |
+| Detecção de mineração | [Formulário (PDF)](resultados/aula-09/formulario-preenchido-artigo1.pdf) | [Parecer editorial](resultados/aula-09/Program%20Chair%20Decision%20CNN%20Mining%20Detection%20under%20Adversarial%20Perturbation.md) |
+| Autorização de agentes de IA | [Formulário (PDF)](resultados/aula-09/formulario-preenchido-artigo2.pdf) | [Parecer editorial](resultados/aula-09/Program%20Chair%20Meta-Review%20Agent%20Authorization%20Position%20Paper.md) |
+
 ## 3. Organização do Repositório
 
 ```text
@@ -227,7 +248,8 @@ O Grupo E confirmou o resultado do AES, conforme registrado no relatório. No Pi
 │   ├── aula-04/ (segredo fictício e resultados)
 │   ├── aula-05/ (PAIR local e comparação entre idiomas)
 │   ├── aula-06/ (planilha, HEPIC e resultados dos juízes)
-│   └── aula-07/ (análise final e métricas das defesas em analise-final/)
+│   ├── aula-07/ (análise final e métricas das defesas em analise-final/)
+│   └── aula-09/ (formulários de revisão e pareceres editoriais)
 ├── images/
 │   ├── aula-01/
 │   │   ├── postagem-tjsp-prompt-injection.png
@@ -238,7 +260,7 @@ O Grupo E confirmou o resultado do AES, conforme registrado no relatório. No Pi
 │   └── aula-07/ (efeito das defesas por grupo do baseline)
 ├── apresentacao/ (fontes LaTeX da apresentação em grupo)
 │   └── images/
-├── artigo/ (artigo em grupo e relatórios separados das Aulas 6 e 7)
+├── artigo/ (artigo em grupo e relatórios das Aulas 6, 7 e 9)
 │   ├── artigo-jbcs.tex
 │   ├── artigo-jbcs.pdf
 │   ├── refs.bib
@@ -248,6 +270,7 @@ O Grupo E confirmou o resultado do AES, conforme registrado no relatório. No Pi
 │   ├── relatorio-aula07.tex
 │   ├── relatorio-aula07.pdf
 │   ├── refs-aula07.bib
+│   ├── relatorio-aula09.pdf
 │   ├── sbc2023.cls
 │   ├── apalike-sol.bst
 │   ├── arquivos auxiliares de ícones e fontes
